@@ -13,6 +13,7 @@ var c = Point{"C", []Point{d}}
 var a = Point{"A", []Point{b, c}}
 
 type BFS func(Point)
+type DFS func(Point)
 
 var bfs BFS = func(node Point) {
 	arr := []Point{node}
@@ -34,5 +35,20 @@ var bfs BFS = func(node Point) {
 }
 
 func main() {
+	var dfs DFS
 	bfs(a)
+	dfs = func(node Point) {
+		if node.name == "" || node.children == nil {
+			return
+		}
+
+		for _, point := range node.children {
+			fmt.Printf("from: %s to %s\n", node.name, point.name)
+			dfs(point)
+		}
+	}
+
+		fmt.Println("*******************")
+		dfs(a)
+	
 }
